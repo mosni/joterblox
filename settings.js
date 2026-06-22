@@ -1,6 +1,6 @@
 var settings = {
     "database": {
-        "url": "mongodb://localhost:27017/joterblox-dev"
+        "url": process.env.MONGO_URL || "mongodb://localhost:27017/joterblox-dev"
     },
     "player": {
         "maxHP": 100, // max health
@@ -24,7 +24,7 @@ var settings = {
         "roundTimer": 120, // how long one round lasts in seconds
         "waitTime": 10, // How many seconds between each round
         "maxPowerups": 3, // how many powerups to spawn randomly
-        "port": 3000, // Port on which the game server runs
+        "port": parseInt(process.env.PORT) || 3000, // Port on which the game server runs
     },
 
     "playerConnection": {

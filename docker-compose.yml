@@ -1,0 +1,22 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    ports: ["127.0.0.1:33016:3000"]
+    environment:
+      - MONGO_URL=${MONGO_URL:-mongodb://mongo:27017/joterblox}
+      - PORT=3000
+    depends_on:
+      - mongo
+    networks: [stack]
+  mongo:
+    image: mongo:3.6
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    networks: [stack]
+volumes:
+  mongo_data:
+networks:
+  stack:
+    external: true
