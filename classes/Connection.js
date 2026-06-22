@@ -203,7 +203,7 @@ var Connection = function (game, socket, sessionID) {
                 adds.splice(i--, 1)
             }
         }
-
+        if (!self.profile) return;
         self.profile.statistics.timePlayed += (new Date()).getTime() - connectedSince;
 
         self.profile.save();
@@ -239,9 +239,10 @@ var Connection = function (game, socket, sessionID) {
         }
     });
 
+    console.log("this is executing")
     if (sessionID) {
         Profile.get({"currentSession": sessionID}, function (p) {
-            console.log(p);
+            console.log("Profile", p);
             if (p) {
                 self.profile = p;
                 color = p.color;
@@ -252,7 +253,11 @@ var Connection = function (game, socket, sessionID) {
             }
             socket.emit("login", self.profile);
         });
-    }
+    } //else {
+       console.log("Profile", "creating...")
+       self.profile = new Profile();
+       self.profile.currentSession = sessionID;
+    //}
 
     socket.emit("loadMap", game.map.pack())
 

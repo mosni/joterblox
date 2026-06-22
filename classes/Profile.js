@@ -9,7 +9,7 @@ var monk = require("monk")
 var crypto = require("crypto")
 
 // Connect to DB
-var db = monk(settings.database.url)
+// var db = monk(settings.database.url)
 
 
 var Profile = function (obj) {
@@ -70,6 +70,7 @@ var Profile = function (obj) {
 }
 
 Profile.get = function (query, callback) {
+    return {}
     var collection = db.get('profiles');
     collection.find(query, {}, function (err,r) {
         console.log(r);
@@ -82,6 +83,7 @@ Profile.get = function (query, callback) {
 } 
 
 Profile.prototype.save = function () {
+    return {}
     var collection = db.get('profiles');
 
     if (this.databaseID) {
