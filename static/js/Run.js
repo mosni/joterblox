@@ -1102,7 +1102,7 @@ var connect = function () {
     connecting = false;
     if (sock) return; // Only connect once
     // Open the socket and add listeners
-    sock = io(window.location.hostname+":"+settings.gameServer.port, {"query": "sessionID="+sessionID});
+    sock = io({"query": "sessionID="+sessionID})  /* same-origin: rides nginx (wss/443), no hardcoded :3000 */;
     sock.on("update", handleUpdate);
     sock.on("loadMap", loadMap);
 
